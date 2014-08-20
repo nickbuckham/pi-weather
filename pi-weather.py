@@ -11,7 +11,6 @@ device_folder = glob.glob(base_dir + '28*')[0]
 device_file = device_folder + '/w1_slave'
 
 class Data(object):
-    # read values
     def read_temp_raw(self):
         f = open(device_file, 'r')
         lines = f.readlines()
@@ -36,12 +35,8 @@ class Display(tk.Frame):
         self.data = Data()
         self.canvas = tk.Canvas(self, background="black")
         self.canvas.pack(side="top", fill="both", expand=True)
-
-        # create lines for velocity and torque
-        self.c_line = self.canvas.create_line(0,0,0,0, fill="red")
-        self.f_line = self.canvas.create_line(0,0,0,0, fill="blue")
-
-        # start the update process
+        self.c_line = self.canvas.create_line(0, 0, 0, 0, fill="red")
+        self.f_line = self.canvas.create_line(0, 0, 0, 0, fill="blue")
         self.update_plot()
 
     def update_plot(self):
@@ -57,7 +52,7 @@ class Display(tk.Frame):
         x = coords[-2] + 1
         coords.append(x)
         coords.append(y)
-        coords = coords[-200:] # keep # of points to a manageable size
+        coords = coords[-200:]
         self.canvas.coords(line, *coords)
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
